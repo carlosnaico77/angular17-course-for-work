@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { debounceTime } from 'rxjs';
@@ -31,13 +32,14 @@ const PRODUCTS: ICartProduct[] = [
 		MatInputModule,
 		NgIf,
 		MatButtonModule,
-		DecimalPipe
+		DecimalPipe,
+		MatIconModule
 	],
 	templateUrl: './simple-product-detail-page.component.html',
 	styleUrl: './simple-product-detail-page.component.scss'
 })
 export class SimpleProductDetailPageComponent implements OnInit {
-	displayedColumns: string[] = ['name', 'price', 'quantity', 'total'];
+	displayedColumns: string[] = ['name', 'price', 'quantity', 'total', 'action'];
 	private readonly formBuilder = inject(FormBuilder);
 
 	form = this.formBuilder.group({
@@ -87,6 +89,11 @@ export class SimpleProductDetailPageComponent implements OnInit {
 		return this.form.controls.products;
 	}
 
+	clickDelete(index: number): void {
+		this.productsFormArray.removeAt(index);
+		// this.dataSource.data = this.productsFormArray.controls;
+		this.dataSource._updateChangeSubscription();
+	}
 	showValues(): void {
 		console.log(this.form.value);
 	}
