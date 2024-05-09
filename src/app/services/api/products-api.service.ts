@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiResponseProduct } from './models/product-api. interface.';
+import { environment } from '../../../environments/environment';
+import { IApiResponseProduct } from '../models/product-api. interface.';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsApiService {
-	private readonly URL_PRODUCTS = 'https://fakestoreapi.com/products';
+	private readonly URL_PRODUCTS = `${environment.domain}/products`;
 	private readonly _httpCLient = inject(HttpClient);
 
 	constructor() {

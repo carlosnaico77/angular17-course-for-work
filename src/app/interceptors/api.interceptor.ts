@@ -5,7 +5,17 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		console.log('---old interceptor', req);
-		return next.handle(req);
+		if (req.url.includes('white_')) {
+			const requestClone = req.clone({ url: this.cleanWhiteUrl(req.url) });
+			return next.handle(requestClone);
+		}
+
+		const headers = req.headers.set('Autorization', localStorage.getItem('token')!);
+		const authReq = req.clone({ headers });
+		return next.handle(authReq);
+	}
+
+	private cleanWhiteUrl(url: string) {
+		return url.replace('white_', '');
 	}
 }
