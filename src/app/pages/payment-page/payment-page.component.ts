@@ -2,7 +2,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { CartApiService } from '../../services/cart-api.service';
+import { CartApiService } from '../../services/api/cart-api.service';
 import { DemoService } from '../../services/demo.service';
 
 @Component({

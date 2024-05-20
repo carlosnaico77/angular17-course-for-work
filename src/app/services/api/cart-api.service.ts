@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IResponseCartApi } from './models/cart-api.interface';
+import { IResponseCartApi } from '../models/cart-api.interface';
 
 @Injectable()
 export class CartApiService {
