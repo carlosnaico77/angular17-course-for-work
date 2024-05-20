@@ -6,7 +6,7 @@ import { IApiResponseProduct } from '../models/product-api. interface.';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsApiService {
-	private readonly URL_PRODUCTS = `${environment.domain}/products`;
+	private readonly URL_PRODUCTS = `white_${environment.domain}/products`;
 	private readonly _httpCLient = inject(HttpClient);
 
 	constructor() {
