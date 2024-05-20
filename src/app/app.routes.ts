@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductsResolverService } from './services/products.resolver';
 
@@ -6,6 +7,7 @@ export default [
 	{ path: 'home', title: 'Home', component: HomePageComponent },
 	{
 		path: 'login',
+		canActivate: [AuthGuard],
 		title: 'Inicio de sesión',
 		loadChildren: () => import('./pages/login-page/login-page.module').then((m) => m.LoginModule)
 	},
