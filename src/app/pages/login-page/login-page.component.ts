@@ -23,10 +23,13 @@ export class LoginPageComponent {
 	}
 
 	clickSingUp(): void {
-		this._authApiService.login(this.form.getRawValue()).subscribe((response) => {
-			localStorage.setItem('token', response.token);
-			localStorage.setItem('role', 'admin');
-			this._router.navigateByUrl('/');
+		this._authApiService.login(this.form.getRawValue()).subscribe({
+			next: (response) => {
+				localStorage.setItem('token', response.token);
+				localStorage.setItem('role', 'admin');
+				this._router.navigateByUrl('/');
+			},
+			error: (err) => console.log('ERROR CONTROLADO DESDE EL COMPONENTE ', err)
 		});
 	}
 }
