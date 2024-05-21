@@ -18,9 +18,15 @@ export class LoginPageComponent {
 		password: ['83r5^_', Validators.required]
 	});
 
+	constructor() {
+		console.log('**********LoginPageComponent**********');
+	}
+
 	clickSingUp(): void {
 		this._authApiService.login(this.form.getRawValue()).subscribe((response) => {
 			localStorage.setItem('token', response.token);
+			localStorage.setItem('role', 'admin');
+			this._router.navigateByUrl('/');
 		});
 	}
 }

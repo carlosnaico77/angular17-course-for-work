@@ -7,20 +7,26 @@ export default [
 	{ path: 'home', title: 'Home', component: HomePageComponent },
 	{
 		path: 'login',
-		canActivate: [AuthGuard],
 		title: 'Inicio de sesión',
 		loadChildren: () => import('./pages/login-page/login-page.module').then((m) => m.LoginModule)
 	},
 	{
 		path: 'register',
 		title: 'Registro',
-		loadComponent: () => import('./pages/register-page/register-page.component')
+		loadChildren: () => import('./pages/register-page/register-page.module').then((m) => m.RegisterPageModule)
 	},
 	{
 		path: 'payment/:user',
+		title: 'Pagos',
 		data: { title: 'Pagos' },
 		resolve: { products: ProductsResolverService },
+		canActivate: [AuthGuard],
 		loadChildren: () => import('./pages/payment-page/payment.routes').then((r) => r.PaymentRoutes)
+	},
+	{
+		path: 'user',
+		title: 'Usuario',
+		loadChildren: () => import('./pages/user/user.routes')
 	},
 
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
