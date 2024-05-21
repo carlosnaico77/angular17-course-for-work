@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { LoginPageComponent } from './login-page.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +14,15 @@ const routes: Routes = [{ path: '', component: LoginPageComponent }];
 
 @NgModule({
 	declarations: [LoginPageComponent],
-	imports: [RouterModule.forChild(routes), MatCardModule, MatInput, MatFormFieldModule, MatIcon, MatButton],
+	imports: [
+		RouterModule.forChild(routes),
+		MatCardModule,
+		MatInput,
+		MatFormFieldModule,
+		MatIcon,
+		MatButton,
+		ReactiveFormsModule
+	],
 	providers: [DemoService]
 })
 export class LoginModule {}

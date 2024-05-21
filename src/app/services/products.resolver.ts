@@ -19,8 +19,8 @@
 
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
+import { ProductsApiService } from './api/products-api.service';
 import { IApiResponseProduct } from './models/product-api. interface.';
-import { ProductsApiService } from './products-api.service';
 
 export const ProductsResolverService: ResolveFn<IApiResponseProduct[]> = (route, state) => {
 	const _productsApiService = inject(ProductsApiService);

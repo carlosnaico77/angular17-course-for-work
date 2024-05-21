@@ -7,9 +7,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ProductsApiService } from '../../services/api/products-api.service';
 import { CartService } from '../../services/cart.service';
 import { IApiResponseProduct } from '../../services/models/product-api. interface.';
-import { ProductsApiService } from '../../services/products-api.service';
 import { ProductComponent } from './product/product.component';
 
 @Component({
