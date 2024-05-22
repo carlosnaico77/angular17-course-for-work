@@ -1,9 +1,14 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { FormControl, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { CanComponentDeactivate } from '../../guards/exit.guard';
+import { CanComponentDeactive } from '../../guards/exit.guard';
 import {
 	PasswordStateMatcher,
 	crossPasswordMatchingValidatior,
@@ -12,26 +17,26 @@ import {
 
 @Component({
 	selector: 'app-register-page',
+	standalone: true,
+	imports: [RouterLink, MatCardModule, MatInput, MatFormFieldModule, MatIcon, MatButton, ReactiveFormsModule],
 	templateUrl: './register-page.component.html',
 	styleUrl: './register-page.component.scss'
 })
-export class RegisterPageComponent implements CanComponentDeactivate {
+export default class RegisterPageComponent implements CanComponentDeactive {
+	dialog = inject(MatDialog);
+
 	@HostListener('window:beforeunload', ['$event'])
 	onBeforeReload(e: BeforeUnloadEvent) {
 		const form_valid = Object.values(this.formGroup.controls).some((control) => control.value !== '');
-
 		if (form_valid) {
 			e.preventDefault();
 		}
-
 		return;
 	}
 
 	// private readonly _formBuilder = inject(FormBuilder);
-
 	private readonly _formBuilder = inject(NonNullableFormBuilder);
 	passwordStateMatcher = new PasswordStateMatcher();
-	dialog = inject(MatDialog);
 
 	// formGroup = new FormGroup({
 	// 	names: new FormControl('', { validators: Validators.required, nonNullable: true }),
@@ -54,16 +59,22 @@ export class RegisterPageComponent implements CanComponentDeactivate {
 		}
 	);
 
-	canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+	// canDeactivate(): boolean | Observable<boolean> {
+	// 	console.log('****canDeactivate REGISTERPAGE********');
+	// 	const formularioValido = Object.values(this.formGroup.controls).some((control) => control.value !== '');
+
+	// 	if (formularioValido) {
+	// 		const reference = this.dialog.open(ConfirmDialogComponent);
+	// 		return reference.afterClosed();
+	// 	}
+	// 	return true;
+	// }
+
+	canDeactivate(): boolean | Observable<boolean> {
+		console.log('****canDeactivate REGISTERPAGE********');
 		const formularioValido = Object.values(this.formGroup.controls).some((control) => control.value !== '');
-		console.log(this.formGroup.getRawValue());
 
-		if (formularioValido) {
-			const reference = this.dialog.open(ConfirmDialogComponent);
-			return reference.afterClosed();
-		}
-
-		return true;
+		return formularioValido;
 	}
 
 	clickRegister(): void {

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { ExitGuardFn } from './guards/exit.guard';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductsResolverService } from './services/products.resolver';
 
@@ -12,8 +13,8 @@ export default [
 	},
 	{
 		path: 'register',
-		title: 'Registro',
-		loadChildren: () => import('./pages/register-page/register-page.module').then((m) => m.RegisterPageModule)
+		canDeactivate: [ExitGuardFn],
+		loadComponent: () => import('./pages/register-page/register-page.component')
 	},
 	{
 		path: 'payment/:user',
