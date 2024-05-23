@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthApiService } from '../../services/api/auth-api.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { AuthApiService } from '../../services/api/auth-api.service';
 	styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
+	private readonly _router = inject(Router);
 	private readonly _formBuilder = inject(NonNullableFormBuilder);
 	private readonly _authApiService = inject(AuthApiService);
 
@@ -20,6 +22,8 @@ export class LoginPageComponent {
 		this._authApiService.login(this.form.getRawValue()).subscribe({
 			next: (response) => {
 				localStorage.setItem('token', response.token);
+				localStorage.setItem('role', 'admin');
+				this._router.navigateByUrl('/');
 			},
 			error: (err) => console.log('ERROR CONTROLADO DESDE EL COMPONENTE ', err)
 		});

@@ -13,7 +13,7 @@ export const ErrorApiInterceptor: HttpInterceptorFn = (req, next) => {
 				_snackBar.open('No tienes acceso', 'OK', { horizontalPosition: 'right', verticalPosition: 'top' });
 			} else {
 				_snackBar.open('Sucedio un error inesperado, intenta más tarde', 'OK', {
-					horizontalPosition: 'right',0
+					horizontalPosition: 'right',
 					verticalPosition: 'top'
 				});
 			}
