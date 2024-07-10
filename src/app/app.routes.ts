@@ -4,6 +4,11 @@ import { ExitGuardFn } from './guards/exit.guard';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductsResolverService } from './services/products.resolver';
 
+const isRole = (role: string) => {
+	const roleLogged = localStorage.getItem('role');
+	return roleLogged === role;
+};
+
 export default [
 	{ path: 'home', title: 'Home', component: HomePageComponent },
 	{
@@ -24,6 +29,28 @@ export default [
 		resolve: { products: ProductsResolverService },
 		loadChildren: () => import('./pages/payment-page/payment.routes').then((r) => r.PaymentRoutes)
 	},
+	{
+		path: 'user',
+		title: 'Usuario',
+		loadChildren: () => import('./pages/user/user.routes')
+	},
+
+	// {
+	// 	path: 'user',
+	// 	title: 'Usuario',
+	// 	children: [
+	// 		{
+	// 			path: '',
+	// 			canMatch: [() => isRole('admin')],
+	// 			component: UserAdminComponent
+	// 		},
+	// 		{
+	// 			path: '',
+	// 			canMatch: [() => isRole('basic')],
+	// 			component: UserBasicComponent
+	// 		}
+	// 	]
+	// },
 
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
 	{ path: 'login', redirectTo: '/login', pathMatch: 'prefix' },
