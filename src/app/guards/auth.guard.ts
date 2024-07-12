@@ -20,17 +20,17 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
-export const AuthGuardFn: CanActivateFn = (route, state) => {
-	console.log('**AuthGuardFn**');
+export const AuthGuardFn: CanActivateFn = (route) => {
+  console.log('**AuthGuardFn**');
 
-	const token = localStorage.getItem('token');
-	console.log(route);
+  const token = localStorage.getItem('token');
+  console.log(route);
 
-	if (!token) {
-		const router = inject(Router);
-		router.navigateByUrl('/');
-		return false;
-	}
+  if (!token) {
+    const router = inject(Router);
+    router.navigateByUrl('/');
+    return false;
+  }
 
-	return true;
+  return true;
 };
